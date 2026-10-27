@@ -1,0 +1,9 @@
+{
+  "benchmark": "Zalo AI Legal Text Retrieval 2021",
+  "dataset_repository": "minhnguyent546/zalo-ai-legal-text-retrieval-2021",
+  "dataset_revision": "5fb3df4300b3a81455fe09af444ec159afa8d212",
+  "validation_fraction": 0.1,
+  "split_seed": "zalo-g1-v1",
+  "primary_metrics": ["recall@10", "recall@50", "mrr", "map", "ndcg@10"],
+  "test_policy": "Official test qrels remain untouched; use train and deterministic validation for method development."
+}

@@ -1,0 +1,21 @@
+{
+  "python": "3.10.0",
+  "reference_repository": "https://github.com/Daijestic/vietnamese-legal-ir",
+  "reference_revision": "92fc24310adf26fd401573003028689e5cacc289",
+  "reference_local_state": "clean according to git status",
+  "zalo_dataset": "minhnguyent546/zalo-ai-legal-text-retrieval-2021",
+  "zalo_cached_revision": "5fb3df4300b3a81455fe09af444ec159afa8d212",
+  "yuitc_dataset": "YuITC/Vietnamese-Legal-Documents",
+  "yuitc_cached_revision": "a5195e351b08074529795283c77b4c9787c727f9",
+  "bkai_dataset": "tmnam20/BKAI-Legal-Retrieval",
+  "bkai_cached_revision": "276f9dce66055e033e0d7c6bf3e6e8d59e9e6d89",
+  "bkai_archive_sha256": "35bef18231742a2ec66889a9074a8283b0807448b777bf8dda45a95859d0e875",
+  "second_reference_repository": "https://github.com/chisngooo/Vietnamese-Legal-Document-Retrieval",
+  "second_reference_revision": "366e8fb978d97b773d1cd16a92cc0de5445208dd",
+  "zalo_source_sha256": {
+    "corpus_train_arrow": "cc70d00f741b75494dce218448ef977ae837898859000cdf47686b311a462281",
+    "queries_train_arrow": "596078d1c68c9edd53f38c2050495df5b3c61e4640e19874ffabe9901c5f07c4",
+    "qrels_train_arrow": "76352b66abfb0b06cb12c4970ee8ef7dd6df7fc99109fd760c73049bbe07f899",
+    "qrels_test_arrow": "83c1dc9aacb47837ca1bacc724f4dfe714f9fe3d34e6ace8693d07532717a341"
+  }
+}
