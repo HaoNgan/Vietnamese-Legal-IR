@@ -1,0 +1,19 @@
+{
+  "reference_revision": "92fc24310adf26fd401573003028689e5cacc289",
+  "corpus_sha256": "15642829a45f815eeda2e9ec26cb9002d2220a3f5fe2f81cb3e85b0e0682401f",
+  "top_k": 5,
+  "query_count": 1,
+  "methods": [
+    "boolean",
+    "tfidf",
+    "bm25"
+  ],
+  "prediction_count": 15,
+  "unique_queries": 1,
+  "unique_methods": [
+    "bm25",
+    "boolean",
+    "tfidf"
+  ],
+  "output_sha256": "72a2d1312ab2612f4c6876611509de85ba00412b85e8b2bf002906e4f12093f5"
+}

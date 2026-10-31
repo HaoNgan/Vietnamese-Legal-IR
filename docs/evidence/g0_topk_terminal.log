@@ -1,0 +1,89 @@
+G0.1 - Truy van thuc va ket qua Top-5
+Date: 2026-10-27
+Query: Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?
+Command: python -u -m src.app.query --query "Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?" --top-k 5 --output docs/evidence/g0_topk_results.csv
+
+
+[BOOLEAN] Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?
+   1. ID: 2263  |  score: 5.000000
+     1. Cơ quan đại diện ở khu vực lãnh sự nơi cư trú của bên nam hoặc bên nữ là công
+     dân Việt Nam thực hiện đăng ký kết hôn giữa công dân Việt Nam cư trú ở nước ngoài
+     với nhau hoặc với người nước ngoài. Trường hợp đăng ký kết hôn giữa công dân Việt
+     Nam với người nước ngoài thì việc đăng ký kết hôn đó kh
+   2. ID: 2272  |  score: 5.000000
+     Ghi vào Sổ hộ tịch việc ly hôn, hủy việc kết hôn đã được giải quyết tại cơ quan có
+     thẩm quyền nước ngoài 1. Việc ly hôn, hủy việc kết hôn của công dân Việt Nam đã
+     được giải quyết tại cơ quan có thẩm quyền của nước ngoài được ghi vào Sổ hộ tịch
+     tại Cơ quan đại diện nếu đáp ứng quy định tại Khoản 1 Đi
+   3. ID: 2275  |  score: 5.000000
+     1. Cơ quan đại diện ở khu vực lãnh sự nơi công dân Việt Nam cư trú thực hiện việc
+     cấp Giấy xác nhận tình trạng hôn nhân cho công dân Việt Nam để sử dụng vào Mục đích
+     kết hôn hoặc Mục đích khác. 2. Người yêu cầu cấp Giấy xác nhận tình trạng hôn nhân
+     phải nộp các giấy tờ sau: a) Tờ khai cấp Giấy xác n
+   4. ID: 47569  |  score: 5.000000
+     "Điều 8. Điều kiện kết hôn 1. Nam, nữ kết hôn với nhau phải tuân theo các điều kiện
+     sau đây: a) Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; b) Việc kết hôn do
+     nam và nữ tự nguyện quyết định; c) Không bị mất năng lực hành vi dân sự; d) Việc
+     kết hôn không thuộc một trong các trường hợp cấm kế
+   5. ID: 907  |  score: 5.000000
+     Khi giải quyết yêu cầu hủy việc kết hôn trái pháp luật, Tòa án phải căn cứ vào điều
+     kiện kết hôn quy định tại Điều 8 của Luật hôn nhân và gia đình để xem xét, quyết
+     định xử lý việc kết hôn trái pháp luật và lưu ý một số điểm như sau: 1. “Nam từ đủ
+     20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên” quy định
+
+[TFIDF] Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?
+   1. ID: 47569  |  score: 0.708048
+     "Điều 8. Điều kiện kết hôn 1. Nam, nữ kết hôn với nhau phải tuân theo các điều kiện
+     sau đây: a) Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; b) Việc kết hôn do
+     nam và nữ tự nguyện quyết định; c) Không bị mất năng lực hành vi dân sự; d) Việc
+     kết hôn không thuộc một trong các trường hợp cấm kế
+   2. ID: 3131  |  score: 0.663221
+     1. Ủy ban nhân dân cấp xã thuộc huyện biên giới nơi cư trú của hai bên nam nữ thực
+     hiện đăng ký kết hôn cho những trường hợp quy định tại khoản 1 và khoản 2 Điều 2
+     của Thông tư này. Hai bên nam, nữ nộp Tờ khai đăng ký kết hôn (theo mẫu được ban
+     hành kèm theo Thông tư này) cho Uỷ ban nhân dân cấp xã.
+   3. ID: 4564  |  score: 0.654209
+     “Điều 11. Việc đăng ký kết hôn có yếu tố nước ngoài 1. Việc xác minh trong thủ tục
+     đăng ký kết hôn theo quy định tại khoản 2 Điều 38 Luật hộ tịch, khoản 1 Điều 31
+     Nghị định số 123/2015/NĐ-CP được thực hiện theo hướng dẫn sau đây: Trong thời hạn
+     10 ngày làm việc, kể từ ngày nhận đủ hồ sơ hợp lệ, Phòn
+   4. ID: 908  |  score: 0.626783
+     1. Cơ quan, tổ chức, cá nhân quy định tại Điều 10 của Luật hôn nhân và gia đình có
+     quyền yêu cầu Tòa án hủy việc kết hôn trái pháp luật. Kèm theo đơn yêu cầu, người
+     yêu cầu phải nộp Giấy chứng nhận kết hôn đối với cá nhân quy định tại khoản 1 Điều
+     10 của Luật hôn nhân và gia đình hoặc giấy tờ, tài l
+   5. ID: 4585  |  score: 0.623494
+     Cách ghi Giấy chứng nhận kết hôn, Sổ đăng ký kết hôn 1. Ngày, tháng, năm đăng ký
+     kết hôn là ngày hai bên nam, nữ có mặt, ký vào Sổ đăng ký kết hôn và Giấy chứng
+     nhận kết hôn tại cơ quan đăng ký hộ tịch. Quan hệ hôn nhân được xác lập từ thời
+     điểm đăng ký kết hôn, trừ trường hợp quy định tại khoản 2 Đ
+
+[BM25] Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?
+   1. ID: 908  |  score: 20.200013
+     1. Cơ quan, tổ chức, cá nhân quy định tại Điều 10 của Luật hôn nhân và gia đình có
+     quyền yêu cầu Tòa án hủy việc kết hôn trái pháp luật. Kèm theo đơn yêu cầu, người
+     yêu cầu phải nộp Giấy chứng nhận kết hôn đối với cá nhân quy định tại khoản 1 Điều
+     10 của Luật hôn nhân và gia đình hoặc giấy tờ, tài l
+   2. ID: 47569  |  score: 19.698886
+     "Điều 8. Điều kiện kết hôn 1. Nam, nữ kết hôn với nhau phải tuân theo các điều kiện
+     sau đây: a) Nam từ đủ 20 tuổi trở lên, nữ từ đủ 18 tuổi trở lên; b) Việc kết hôn do
+     nam và nữ tự nguyện quyết định; c) Không bị mất năng lực hành vi dân sự; d) Việc
+     kết hôn không thuộc một trong các trường hợp cấm kế
+   3. ID: 4579  |  score: 18.910132
+     Thủ tục đăng ký kết hôn lưu động 1. Công chức tư pháp - hộ tịch cấp xã được giao
+     nhiệm vụ đăng ký kết hôn lưu động có trách nhiệm chuẩn bị đầy đủ mẫu Tờ khai, giấy
+     tờ hộ tịch và điều kiện cần thiết để thực hiện đăng ký lưu động. Tại địa điểm đăng
+     ký lưu động, công chức tư pháp - hộ tịch có trách nhi
+   4. ID: 3131  |  score: 18.567562
+     1. Ủy ban nhân dân cấp xã thuộc huyện biên giới nơi cư trú của hai bên nam nữ thực
+     hiện đăng ký kết hôn cho những trường hợp quy định tại khoản 1 và khoản 2 Điều 2
+     của Thông tư này. Hai bên nam, nữ nộp Tờ khai đăng ký kết hôn (theo mẫu được ban
+     hành kèm theo Thông tư này) cho Uỷ ban nhân dân cấp xã.
+   5. ID: 61763  |  score: 18.397847
+     "Điều 17. Thẩm quyền đăng ký kết hôn và nội dung Giấy chứng nhận kết hôn 1. Ủy ban
+     nhân dân cấp xã nơi cư trú của một trong hai bên nam, nữ thực hiện đăng ký kết hôn.
+     2. Giấy chứng nhận kết hôn phải có các thông tin sau đây: a) Họ, chữ đệm và tên;
+     ngày, tháng, năm sinh; dân tộc; quốc tịch; nơi cư tr
+Saved 15 ranked rows to docs\evidence\g0_topk_results.csv
+
+Exit code: 0

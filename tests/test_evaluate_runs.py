@@ -19,6 +19,13 @@ class RunEvaluatorTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "contiguous"):
                 load_run(run, {"d1"})
 
+    def test_ranked_run_rejects_document_id_outside_corpus(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run = Path(tmp) / "run.csv"
+            run.write_text("qid,doc_id,rank\nq1,unknown,1\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "absent from corpus"):
+                load_run(run, {"d1"})
+
     def test_cli_macro_averages_every_qid_in_qrels(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

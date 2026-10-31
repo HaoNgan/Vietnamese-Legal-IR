@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="820" viewBox="0 0 1500 820" role="img" aria-labelledby="title desc">
+  <title id="title">Quy trình tìm kiếm văn bản pháp luật</title>
+  <desc id="desc">Hệ thống chuẩn bị các đoạn luật và hai cách tìm song song: theo từ khóa bằng BM25 và theo ý nghĩa bằng BGE-M3 với FAISS. Hai danh sách được gộp, sau đó Cross-Encoder đọc câu hỏi cùng từng đoạn và xếp lại kết quả.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#42515b"/></marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #28343b; }
+      .section { font-size: 18px; font-weight: 650; }
+      .name { font-size: 17px; font-weight: 600; }
+      .line1 { font-size: 15px; }
+      .line2 { font-size: 13px; fill: #53616a; }
+      .box { fill: #fff; stroke: #687780; stroke-width: 1.35; }
+      .soft { fill: #f6f7f6; stroke: #687780; stroke-width: 1.35; }
+      .method { fill: #f4f6f5; stroke: #687780; stroke-width: 1.35; }
+      .out { fill: #fff; stroke: #42515b; stroke-width: 1.55; }
+      .arrow { fill: none; stroke: #42515b; stroke-width: 1.7; marker-end: url(#arrow); }
+      .stored { fill: none; stroke: #78858c; stroke-width: 1.4; stroke-dasharray: 6 5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1500" height="820" fill="#fff"/>
+
+  <!-- Chuẩn bị dữ liệu và hai chỉ mục -->
+  <text x="52" y="63" class="section">CHUẨN BỊ TRƯỚC</text>
+
+  <rect x="58" y="112" width="220" height="112" rx="2" class="soft"/>
+  <text x="82" y="151" class="name">Văn bản pháp luật</text>
+  <text x="82" y="182" class="line1">Nội dung các Điều</text>
+
+  <rect x="352" y="112" width="260" height="112" rx="2" class="box"/>
+  <text x="376" y="151" class="name">Chia thành đoạn ngắn</text>
+  <text x="376" y="182" class="line1">400 từ · chồng lấn 50 từ</text>
+  <path d="M278 168 H352" class="arrow"/>
+
+  <path d="M612 168 H660 V115 H700" class="arrow"/>
+  <path d="M660 168 V246 H700" class="arrow"/>
+
+  <rect x="700" y="76" width="310" height="112" rx="2" class="method"/>
+  <text x="724" y="115" class="name">Lập chỉ mục từ khóa</text>
+  <text x="724" y="145" class="line1">BM25</text>
+  <text x="724" y="169" class="line2">Chuẩn hóa và tách từ tiếng Việt</text>
+
+  <rect x="1080" y="76" width="330" height="112" rx="2" class="out"/>
+  <text x="1104" y="115" class="name">Danh mục tra cứu BM25</text>
+  <text x="1104" y="145" class="line1">Dùng để tìm theo từ ngữ</text>
+  <path d="M1010 132 H1080" class="arrow"/>
+
+  <rect x="700" y="208" width="310" height="92" rx="2" class="method"/>
+  <text x="724" y="245" class="name">Mã hóa nội dung</text>
+  <text x="724" y="274" class="line1">BGE-M3 tạo vector cho mỗi đoạn</text>
+
+  <rect x="1080" y="208" width="330" height="92" rx="2" class="out"/>
+  <text x="1104" y="245" class="name">Lưu vector bằng FAISS</text>
+  <text x="1104" y="274" class="line1">Kèm mã đoạn để truy ngược văn bản</text>
+  <path d="M1010 254 H1080" class="arrow"/>
+
+  <!-- Xử lý truy vấn -->
+  <text x="52" y="391" class="section">KHI CÓ CÂU HỎI</text>
+
+  <rect x="58" y="528" width="220" height="110" rx="2" class="soft"/>
+  <text x="82" y="568" class="name">Câu hỏi</text>
+  <text x="82" y="599" class="line1">Người dùng nhập tiếng Việt</text>
+
+  <!-- Nhánh tìm từ khóa -->
+  <path d="M278 580 H330 V492 H370" class="arrow"/>
+  <rect x="370" y="438" width="275" height="108" rx="2" class="method"/>
+  <text x="394" y="477" class="name">Tìm theo từ khóa</text>
+  <text x="394" y="507" class="line1">BM25 tìm đoạn có từ ngữ trùng</text>
+  <path d="M1245 188 V414 H500 V438" class="stored"/>
+
+  <!-- Nhánh tìm gần nghĩa -->
+  <path d="M278 586 H330 V686 H370" class="arrow"/>
+  <rect x="370" y="632" width="275" height="108" rx="2" class="method"/>
+  <text x="394" y="671" class="name">Tìm theo ý nghĩa</text>
+  <text x="394" y="701" class="line1">BGE-M3 + FAISS tìm đoạn gần nghĩa</text>
+  <path d="M1410 254 H1460 V758 H500 V740" class="stored"/>
+
+  <!-- Hợp nhất và xếp lại -->
+  <path d="M645 492 H704 V555 H738" class="arrow"/>
+  <path d="M645 686 H704 V620 H738" class="arrow"/>
+  <rect x="738" y="520" width="245" height="135" rx="2" class="box"/>
+  <text x="762" y="559" class="name">Gộp kết quả</text>
+  <text x="762" y="590" class="line1">Giữ các đoạn ứng viên</text>
+  <text x="762" y="618" class="line2">Fusion · product_rank</text>
+
+  <path d="M983 588 H1030" class="arrow"/>
+  <rect x="1030" y="520" width="250" height="135" rx="2" class="method"/>
+  <text x="1054" y="559" class="name">Đọc và xếp lại</text>
+  <text x="1054" y="590" class="line1">Cross-Encoder so câu hỏi</text>
+  <text x="1054" y="616" class="line1">với từng đoạn luật</text>
+  <text x="1054" y="641" class="line2">BGE Reranker v2-m3</text>
+
+  <path d="M1280 588 H1320" class="arrow"/>
+  <rect x="1320" y="520" width="120" height="135" rx="2" class="out"/>
+  <text x="1338" y="562" class="name">Top-K</text>
+  <text x="1338" y="592" class="line1">đoạn luật</text>
+  <text x="1338" y="618" class="line1">liên quan</text>
+  <text x="1338" y="642" class="line2">kèm mã văn bản</text>
+</svg>
