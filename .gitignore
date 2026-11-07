@@ -5,9 +5,14 @@ __pycache__/
 
 # Local datasets and generated artifacts are not source files.
 data/
+!src/data/
+!src/data/*.py
 outputs/*
 !outputs/reports/
 outputs/reports/*
 !outputs/reports/g1_data_lock/
 outputs/reports/g1_data_lock/*
 !outputs/reports/g1_data_lock/dataset_report.md
+
+!outputs/bm25_zalo_validation_20261028/
+!outputs/bm25_zalo_validation_20261028/**

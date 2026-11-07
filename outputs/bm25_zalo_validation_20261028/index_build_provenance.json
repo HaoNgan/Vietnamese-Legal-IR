@@ -1,0 +1,41 @@
+{
+  "purpose": "Provenance for the BM25 index built before the index-reuse reproduction run.",
+  "dataset": "Zalo AI Legal Text Retrieval 2021",
+  "dataset_revision": "5fb3df4300b3a81455fe09af444ec159afa8d212",
+  "split": "validation qrels; corpus index fit on all 61,425 locked corpus documents",
+  "split_seed": "zalo-g1-v1 (recorded in the locked benchmark manifest)",
+  "validation_queries": 256,
+  "test_qrels_read": false,
+  "bm25": {
+    "baseline_default": {"k1": 1.5, "b": 0.75},
+    "saved_index_parameters": {"k1": 1.2, "b": 0.75},
+    "tokenization": "Pinned reference preprocessing: clean text, Underthesea word_tokenize, reference stopword removal",
+    "index_file": "bm25_index.pkl",
+    "index_sha256": "a6c6bea6bc425b7e47d127c2804234491a798200302ff5cadc0cbad5b8dd935d",
+    "index_size_bytes": 91617306
+  },
+  "reference_revision": "92fc24310adf26fd401573003028689e5cacc289",
+  "index_builder": {
+    "source": "src/evaluation/run_bm25.py",
+    "source_snapshot": "run_bm25_index_builder.py",
+    "source_sha256": "80ce1c8450c5dab6743b562a8af8fcd619b14ad4d1635eee6cca23ae247b959d",
+    "fit_duration_from_progress_display": "35:02",
+    "duration_note": "The source runner's timer value was not persisted because final metadata writing failed; 35:02 is the duration displayed by tqdm, not a separate wall-clock measurement."
+  },
+  "first_pass": {
+    "command": ".\\.venv\\Scripts\\python.exe -m src.evaluation.run_bm25 --top-k 100 --output-dir outputs\\bm25_zalo_validation_20261028",
+    "completed_work": "Fit full-corpus index, evaluated all nine k1/b configurations on all 256 validation queries, wrote index, predictions, per-query metrics, and metrics_comparison_first_pass.csv.",
+    "termination": "Exited nonzero during final run_config path serialization because a relative output directory was not resolved before Path.relative_to. No test split was read.",
+    "recovery": "Fixed output-path handling, loaded the saved index, reran all nine configurations, and confirmed identical prediction SHA-256 and identical metric values for every configuration."
+  },
+  "reproduction_runner": {
+    "source_snapshot": "run_bm25_reproduction_runner.py",
+    "source_sha256": "bb6f89fc3b61b14f66cefd5acd60d6bd1d646504134efcc3eec60a65f655cad0",
+    "reproduction_command": ".\\.venv\\Scripts\\python.exe -m src.evaluation.run_bm25 --top-k 100 --reuse-index outputs\\bm25_zalo_validation_20261028\\bm25_index.pkl --output-dir outputs\\bm25_zalo_validation_20261028",
+    "result": "All nine run files reproduced byte-for-byte; all five metric values per configuration matched the first pass."
+  },
+  "first_pass_metrics": "metrics_comparison_first_pass.csv",
+  "verified_metrics": "metrics_comparison.csv",
+  "verified_run_config": "run_config.json",
+  "metadata_note": "After the reproduction run completed, the resources.memory_scope description in run_config.json was corrected to state that this process loaded the saved index and did not perform the original index fit. Prediction files and metric values were not changed; code_sha256.runner remains the exact runner snapshot used for the reproduction run. The current source also emits the corrected description."
+}

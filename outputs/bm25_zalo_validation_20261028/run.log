@@ -1,0 +1,18 @@
+BM25 validation baseline and parameter sweep completed.
+Dataset revision: 5fb3df4300b3a81455fe09af444ec159afa8d212
+Corpus documents: 61425
+Validation queries: 256
+Run depth: 100
+BM25 index loaded from saved artifact
+Reference revision: 92fc24310adf26fd401573003028689e5cacc289
+Selected on validation by nDCG@10: grid_k1_1.2_b_0.75 (k1=1.2, b=0.75)
+Index SHA-256: a6c6bea6bc425b7e47d127c2804234491a798200302ff5cadc0cbad5b8dd935d
+default_k1_1.5_b_0.75: Recall@10=0.859375, Recall@50=0.949219, MRR=0.618477, MAP=0.618477, nDCG@10=0.672548, latency_p50/p95_ms=152.057/292.845
+grid_k1_1.2_b_0.5: Recall@10=0.859375, Recall@50=0.949219, MRR=0.606847, MAP=0.606847, nDCG@10=0.664626, latency_p50/p95_ms=151.37/282.905
+grid_k1_1.2_b_0.75: Recall@10=0.855469, Recall@50=0.949219, MRR=0.623093, MAP=0.623093, nDCG@10=0.675143, latency_p50/p95_ms=152.78/279.512
+grid_k1_1.2_b_1: Recall@10=0.843750, Recall@50=0.941406, MRR=0.602950, MAP=0.602950, nDCG@10=0.656088, latency_p50/p95_ms=150.059/274.461
+grid_k1_1.5_b_0.5: Recall@10=0.859375, Recall@50=0.945312, MRR=0.602875, MAP=0.602875, nDCG@10=0.661454, latency_p50/p95_ms=129.194/235.511
+grid_k1_1.5_b_1: Recall@10=0.839844, Recall@50=0.941406, MRR=0.591617, MAP=0.591617, nDCG@10=0.646292, latency_p50/p95_ms=131.675/234.224
+grid_k1_1.8_b_0.5: Recall@10=0.847656, Recall@50=0.945312, MRR=0.585251, MAP=0.585251, nDCG@10=0.644533, latency_p50/p95_ms=129.783/224.709
+grid_k1_1.8_b_0.75: Recall@10=0.851562, Recall@50=0.949219, MRR=0.609239, MAP=0.609239, nDCG@10=0.663155, latency_p50/p95_ms=128.3/231.684
+grid_k1_1.8_b_1: Recall@10=0.808594, Recall@50=0.945312, MRR=0.581362, MAP=0.581362, nDCG@10=0.630064, latency_p50/p95_ms=130.712/237.848

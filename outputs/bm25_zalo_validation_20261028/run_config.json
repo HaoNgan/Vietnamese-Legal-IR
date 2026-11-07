@@ -1,0 +1,134 @@
+{
+  "benchmark": "Zalo AI Legal Text Retrieval 2021",
+  "dataset_revision": "5fb3df4300b3a81455fe09af444ec159afa8d212",
+  "split": "validation",
+  "validation_queries": 256,
+  "corpus_documents": 61425,
+  "top_k": 100,
+  "selection": {
+    "primary_metric": "nDCG@10",
+    "tie_break_order": [
+      "MAP",
+      "MRR",
+      "Recall@10",
+      "Recall@50",
+      "lower p95 latency"
+    ],
+    "split_used_for_selection": "validation",
+    "test_qrels_used": false
+  },
+  "bm25": {
+    "implementation": "Daijestic BM25Retriever, in-memory inverted postings",
+    "tokenization": "Pinned reference preprocess: clean text, Underthesea word_tokenize, remove reference stopwords",
+    "default": {
+      "k1": 1.5,
+      "b": 0.75
+    },
+    "grid_k1": [
+      1.2,
+      1.5,
+      1.8
+    ],
+    "grid_b": [
+      0.5,
+      0.75,
+      1.0
+    ],
+    "best_validation": {
+      "k1": 1.2,
+      "b": 0.75,
+      "run_name": "grid_k1_1.2_b_0.75"
+    },
+    "random_seed": null
+  },
+  "reference_revision": "92fc24310adf26fd401573003028689e5cacc289",
+  "software": {
+    "python": "3.10.0",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
+    "machine": "AMD64",
+    "logical_cpu_count": 4,
+    "underthesea": "6.8.4"
+  },
+  "timing": {
+    "index_fit_seconds": null,
+    "latency_scope": "Per-query search call including preprocessing; excludes index fitting, loading, and output writing. First query is included."
+  },
+  "index_source": {
+    "mode": "loaded from saved index for reproducibility run",
+    "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\bm25_index.pkl",
+    "sha256": "a6c6bea6bc425b7e47d127c2804234491a798200302ff5cadc0cbad5b8dd935d",
+    "document_count_matches_corpus_ids": true
+  },
+  "resources": {
+    "corpus_file_bytes": 114572854,
+    "index_file_bytes": 91617306,
+    "process_peak_working_set_bytes": 1423257600,
+    "memory_scope": "Peak process RSS/working set across loading the saved index and validation retrieval; excludes the original index-build process and is not an isolated index-size measurement."
+  },
+  "artifacts": {
+    "index": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\bm25_index.pkl",
+    "index_sha256": "a6c6bea6bc425b7e47d127c2804234491a798200302ff5cadc0cbad5b8dd935d",
+    "metrics_comparison": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\metrics_comparison.csv",
+    "predictions_dir": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions",
+    "per_query_metrics_dir": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\per_query",
+    "runs": [
+      {
+        "name": "default_k1_1.5_b_0.75",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\default_k1_1.5_b_0.75.csv",
+        "sha256": "c9f94a0ad81cad1bf02b6310b3277bda3d86f34a0518c06708078a58df59430b"
+      },
+      {
+        "name": "grid_k1_1.2_b_0.5",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.2_b_0.5.csv",
+        "sha256": "236a1dee761bf9190ce59a44223339aa10982b4e082a1886c1d49264a7f3b720"
+      },
+      {
+        "name": "grid_k1_1.2_b_0.75",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.2_b_0.75.csv",
+        "sha256": "cf2a3ace2317364585e889c89102560267671942f9548cf6b73fbaa31b98b56b"
+      },
+      {
+        "name": "grid_k1_1.2_b_1",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.2_b_1.csv",
+        "sha256": "413b37e739fb11b8534285f7443bd851be92448ec6067bd9357dcf3107d1941f"
+      },
+      {
+        "name": "grid_k1_1.5_b_0.5",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.5_b_0.5.csv",
+        "sha256": "551ac040831d34a239d21ada9f515c81c6da49eab2914cd3a679bbe9c87187c8"
+      },
+      {
+        "name": "grid_k1_1.5_b_1",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.5_b_1.csv",
+        "sha256": "883f7cca3df24eedbe7b0b7c9eed3bc55ba661e33c85efe6ede3507f225a4a1c"
+      },
+      {
+        "name": "grid_k1_1.8_b_0.5",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.8_b_0.5.csv",
+        "sha256": "9c2c78d5d1064ee6e077bc4a342a49c0b114b073fbddfa5385554dd705306db5"
+      },
+      {
+        "name": "grid_k1_1.8_b_0.75",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.8_b_0.75.csv",
+        "sha256": "b0a509a323d206f2d542fe03c89785be4eca7428690b8f9c5df5b2305dc8e607"
+      },
+      {
+        "name": "grid_k1_1.8_b_1",
+        "path": "D:\\LegalIR-Workspace\\legal_ir\\outputs\\bm25_zalo_validation_20261028\\predictions\\grid_k1_1.8_b_1.csv",
+        "sha256": "128aa7e63fd427e298efb5bb762592396162b1349776c4dd19cba0b21131f78d"
+      }
+    ]
+  },
+  "code_sha256": {
+    "runner": "a9bcb8fb885136d4927575e980ed6b2b1aa817ce4dffbda3c1347aedf6dd7330",
+    "evaluator": "84c492df3e94ca409006aea8d1d82b7e53fbe332db1073a33a4473168bd55428",
+    "metrics": "ebc90ff19dcd9a126390663c88ea6f9154ee11a02aedb0794a57bba27a719842"
+  },
+  "input_sha256": {
+    "corpus": "2b5b7ad6a71e0f8ddd9232fc5d797139bcda7009549b2873083dbabe6248eb31",
+    "queries": "41061e573007266e39a04b1429be61afb42e34970d2a74699b0e25c9a13216f6",
+    "qrels_validation": "4d1c9491f7f3a9f3567f52bf1c5064622e8d3afd4dacf00e186cdd8aa27ae7e2",
+    "benchmark_manifest": "ee21402525c300d070fe283e5d94615db435a5308ab075671c235be6ac604fa3"
+  }
+}

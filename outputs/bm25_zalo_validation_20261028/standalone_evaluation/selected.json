@@ -1,0 +1,17 @@
+{
+  "queries": 256,
+  "queries_with_run_rows": 256,
+  "queries_without_results_scored_as_empty": 0,
+  "run_depth_values": [
+    85,
+    100
+  ],
+  "map_and_mrr_interpretation": "Computed over the submitted ranked list; run depth is reported per query.",
+  "metrics_macro_average": {
+    "recall@10": 0.85546875,
+    "recall@50": 0.94921875,
+    "mrr": 0.6230927856884707,
+    "map": 0.6230927856884707,
+    "ndcg@10": 0.6751426536862657
+  }
+}
