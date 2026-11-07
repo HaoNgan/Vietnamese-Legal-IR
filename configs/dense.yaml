@@ -1,0 +1,18 @@
+model_name: BAAI/bge-m3
+model_revision: 5617a9f61b028005a4858fdac845db406aefb181 # Verified checkpoint revision used by the local cache.
+device: null # Sentence Transformers selects CUDA when available, otherwise CPU.
+corpus: data/processed/benchmarks/zalo_2021/corpus.jsonl
+queries: data/processed/benchmarks/zalo_2021/queries.jsonl
+qrels: data/processed/benchmarks/zalo_2021/qrels_validation.jsonl
+manifest: data/processed/benchmarks/zalo_2021/manifest.json
+baseline_metrics: outputs/bm25_zalo_validation_20261028/metrics_comparison.csv
+baseline_run_name: grid_k1_1.2_b_0.75
+split: validation
+batch_size: 16
+shard_size: 64 # Smaller atomic checkpoints keep CPU runs resumable after interruption.
+top_k: 100
+output_dir: outputs/b1_dense_validation
+seed: 42
+similarity: cosine
+normalization: l2
+index: IndexFlatIP

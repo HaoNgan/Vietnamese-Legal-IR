@@ -1,59 +1,110 @@
-# Nhật ký công việc đã thực hiện
+# Tiến trình thực hiện đồ án
 
-Đề tài: **Nghiên cứu và xây dựng hệ thống truy xuất văn bản pháp luật tiếng Việt sử dụng mô hình biểu diễn ngữ nghĩa và tái xếp hạng**.
+**Đề tài:** Nghiên cứu và xây dựng hệ thống truy xuất văn bản pháp luật tiếng Việt sử dụng mô hình biểu diễn ngữ nghĩa và tái xếp hạng.
 
-Trang này chỉ ghi việc đã làm và bằng chứng hiện có. Kế hoạch tương lai, hướng dẫn cho AI và nội dung chưa thực hiện không ghi thành kết quả.
+## Tài liệu này dùng để làm gì?
 
-## Tuần 1 — G0: baseline ban đầu
+README hướng dẫn cài đặt và chạy dự án. File này tóm tắt những phần đã làm, kết quả thu được và nơi lưu bằng chứng để tiện xem lại tiến độ.
 
-- Chuẩn bị subset gồm **5.000 văn bản BKAI** và **500 query/qrel YuITC**.
-- Chạy các baseline Boolean, TF-IDF, BM25; phần đánh giá metric dùng **100 query**.
-- Chạy truy vấn thủ công để xem Top-K. Artifact gồm report, cấu hình, log, predictions và truy vấn mẫu.
-- Các baseline gọi mã tham khảo Daijestic tại revision `92fc24310adf26fd401573003028689e5cacc289`; không phải toàn bộ thuật toán được tự cài trong project.
+## Tiến độ hiện tại
+
+| Mốc | Nội dung | Trạng thái |
+|---|---|---|
+| G0 | Chạy thử Boolean, TF-IDF và BM25 trên dữ liệu BKAI/YuITC giới hạn | Hoàn tất theo phạm vi thử nghiệm |
+| G1 | Chuẩn hóa dữ liệu Zalo 2021, khóa split, checksum và evaluator | Hoàn tất |
+| G2 / B0 | Chạy BM25 trên corpus Zalo và đánh giá trên validation | Hoàn tất |
+| G3 / B1 | Chạy BGE-M3 + FAISS trên toàn corpus và đánh giá trên validation | Hoàn tất |
+
+## G0 — Baseline ban đầu
+
+G0 kiểm tra khả năng chạy truy xuất và xem kết quả Top-K trên tập dữ liệu giới hạn:
+
+- 5.000 văn bản BKAI; 500 query/qrel YuITC được chuẩn bị.
+- Metric được tính trên 100 query.
+- Các phương pháp: Boolean, TF-IDF và BM25.
 
 | Phương pháp | Recall@10 | MAP | nDCG@10 |
 |---|---:|---:|---:|
-| Boolean | 0.2050 | 0.1911667 | 0.1959823 |
-| TF-IDF | 0.8800 | 0.7394127 | 0.7794795 |
-| BM25 | 0.9450 | 0.8484980 | 0.8767397 |
+| Boolean | 0,2050 | 0,1912 | 0,1960 |
+| TF-IDF | 0,8800 | 0,7394 | 0,7795 |
+| BM25 | 0,9450 | 0,8485 | 0,8767 |
 
-**Giới hạn:** đây là subset chọn lọc BKAI/YuITC để kiểm tra baseline, không phải kết quả trên benchmark Zalo và không chứng minh phương pháp nào tốt hơn trên mọi tập.
+**Lưu ý:** Đây là kết quả trên subset BKAI/YuITC, không phải kết quả trên benchmark Zalo. Một số baseline gọi mã từ repository tham khảo đã pin revision; không phải toàn bộ được tự cài đặt từ đầu.
 
-**Bằng chứng:** `outputs/reports/baseline_g0/`, `outputs/predictions/baseline_g0/`, `outputs/predictions/manual_top5.csv`, `docs/evidence/`. Chi tiết truy vấn mẫu tại [g0_topk_evidence.md](g0_topk_evidence.md).
+**Xem kết quả tại:** `outputs/reports/baseline_g0/`, `outputs/predictions/baseline_g0/` và `docs/g0_topk_evidence.md`.
 
-- 28/10/2026: chạy lại baseline 100 query và Top-K 10 query trong `outputs/g0_repro_check/`; G0 metric CSV, ranked predictions, inputs/revision và Top-K CSV (115 dòng) có SHA-256 trùng artifact cũ.
-- Người dùng xác nhận đã tự vẽ và giải thích sơ đồ pipeline theo yêu cầu G0.4. G0 được chuyển từ “Đạt có điều kiện” thành “Đạt”; sơ đồ trong repository chỉ là tài liệu hỗ trợ, không được dùng làm bằng chứng thay cho xác nhận này.
+## G1 — Khóa dữ liệu và evaluator
 
-## Tuần 2 — G1: chuẩn bị dữ liệu và evaluator
+Benchmark chính là Zalo AI Legal Text Retrieval 2021:
 
-- Chuẩn hóa benchmark Zalo AI Legal Text Retrieval 2021, revision `5fb3df4300b3a81455fe09af444ec159afa8d212`.
-- Manifest ghi **61.425 văn bản**, **3.196 query**; split gồm 2.300 train, 256 validation, 640 test.
-- Tạo schema chuẩn và manifest/checksum; ghi nhận kiểm tra ID, qrels tham chiếu corpus và trùng lặp chính xác.
-- Evaluator hỗ trợ Recall@10, Recall@50, MRR, MAP, nDCG@10. Toàn bộ 9 test hiện có đạt sau khi bổ sung test BM25 retrieval/save/load và kiểm tra evaluator từ chối ID ngoài corpus.
-- Lệnh `.\.venv\Scripts\python.exe -m src.data.prepare_g1 --verify` thành công: 6 tệp xử lý và 7 tệp nguồn khớp manifest.
+- 61.425 văn bản và 3.196 query.
+- Train: 2.300 query; validation: 256 query; test chính thức: 640 query.
+- Metric: Recall@10, Recall@50, MRR, MAP và nDCG@10.
+- Split test được giữ riêng, chưa dùng để chọn cấu hình hoặc báo cáo điểm test.
 
-**Giới hạn:** G1 xác nhận dữ liệu/evaluator, không phải retrieval trên Zalo. Chưa có metric BM25 Zalo được xác nhận. Chi tiết manifest và kiểm tra nằm tại `data/processed/benchmarks/zalo_2021/manifest.json`, `configs/g1_data_lock.json`, `outputs/reports/g1_data_lock/`.
+Đã kiểm tra schema, ID, qrels, checksum và evaluator. Lệnh xác minh dữ liệu chạy thành công:
 
-## Tuần 3 — G2: BM25 B0 trên Zalo
+```powershell
+python -m src.data.prepare_g1 --verify
+```
 
-- Thêm `src/evaluation/run_bm25.py`; đặt tên theo chức năng, không theo tuần. Runner fit một lần trên 61.425 corpus docs rồi đánh giá baseline `k1=1.5,b=0.75` và lưới 9 cấu hình `k1={1.2,1.5,1.8}`, `b={0.5,0.75,1.0}` trên 256 query validation, depth 100.
-- Tokenization giữ nguyên đúng mã tham khảo Daijestic revision `92fc24310adf26fd401573003028689e5cacc289`: `clean_text`, Underthesea `word_tokenize`, stopwords. Index dùng title + text. Test split không được đọc.
-- Tuning chọn theo nDCG@10 validation, tie-break theo MAP, MRR, Recall@10, Recall@50, latency p95. Kết quả mặc định: R@10 .859375, R@50 .949219, MRR/MAP .618477, nDCG@10 .672548. Cấu hình chọn `k1=1.2,b=.75`: R@10 .855469, R@50 .949219, MRR/MAP .623093, nDCG@10 .675143. Gain nDCG nhỏ, Recall@10 giảm; không khẳng định cải thiện có ý nghĩa thống kê.
-- Latency truy vấn nạp sẵn index: default p50/p95 158.565/317.389 ms; selected 165.624/304.356 ms. Thời gian fit progress bar khoảng 35:02; lượt đầu lỗi cuối khâu ghi metadata nên timer đo riêng không được lưu.
-- Lượt đầu đã tạo index 91.617.306 byte, 9 prediction files và metric; lỗi dùng relative output path làm `Path.relative_to` dừng trước khi ghi `run_config.json`/log. Chuẩn hóa output path và thêm `--reuse-index`; chạy lại cả 9 cấu hình. SHA-256 predictions và metric values của cả 9 cấu hình trùng hoàn toàn. Evaluator CLI chạy độc lập cho default/selected, đủ 256 qid, không qid thiếu và metric khớp.
-- Lệnh chính: `.\.venv\Scripts\python.exe -m src.evaluation.run_bm25 --top-k 100 --output-dir outputs\bm25_zalo_validation_20261028`; tái lập: thêm `--reuse-index outputs\bm25_zalo_validation_20261028\bm25_index.pkl`.
-- Artifact: `outputs/bm25_zalo_validation_20261028/` gồm `bm25_index.pkl`, predictions, `metrics_comparison.csv`, `per_query/`, `standalone_evaluation/`, config, log và provenance. Lỗi/khôi phục chi tiết ở `index_build_provenance.json`.
-- 9 test đạt; G2 **đạt theo tiêu chí đã giao** vì B0/replay trên validation tái tạo đúng predictions/metric. Test chưa đánh giá và không có claim về generalization.
+**Xem cấu hình và bằng chứng tại:** `configs/g1_data_lock.json`, `data/processed/benchmarks/zalo_2021/manifest.json` và `outputs/reports/g1_data_lock/`.
 
-## Khảo sát pipeline tham khảo — kiến trúc hybrid
+## G2 / B0 — BM25 trên Zalo
 
-- Đối chiếu README và mã nguồn repository `chisngooo/Vietnamese-Legal-Document-Retrieval` tại revision `366e8fb978d97b773d1cd16a92cc0de5445208dd`.
-- Xác nhận trong mã: chunk 400 từ/overlap 50; BM25 dùng Underthesea tokenizer và `BM25Okapi`; Dense dùng BGE-M3, embedding chuẩn hóa, FAISS `IndexFlatIP` và mapping về `aid/chunk_id`; hai nhánh được hợp nhất bằng `product_rank` trong cấu hình script.
-- Ghi nhận sai khác giữa tài liệu và code: README mô tả Top-10 sau reranking nhưng script reranker chỉ sắp xếp/ghi danh sách ứng viên; không cắt Top-K. README hướng dẫn batch 128, trong khi mặc định script là 16.384. Sơ đồ giữ đúng hành vi script và nêu rõ sai khác.
-- Đầu ra sơ đồ: `docs/research_architecture.svg` (ảnh xem/chèn vào báo cáo).
-- Đây là sơ đồ phân tích repository tham khảo theo yêu cầu; các thành phần đó không đồng nghĩa đã được tích hợp vào project DATN.
+BM25 được chạy trên toàn bộ 61.425 văn bản và đánh giá bằng 256 query validation. Chín cấu hình được so sánh; cấu hình chọn theo nDCG@10 validation là `k1=1.2, b=0.75`.
 
-## Ghi chú về hồ sơ phiên
+| Cấu hình | Recall@10 | Recall@50 | MRR | MAP | nDCG@10 |
+|---|---:|---:|---:|---:|---:|
+| Mặc định `k1=1.5, b=0.75` | 0,859375 | 0,949219 | 0,618477 | 0,618477 | 0,672548 |
+| Chọn `k1=1.2, b=0.75` | 0,855469 | 0,949219 | 0,623093 | 0,623093 | 0,675143 |
 
-Nhật ký này tổng hợp artifact và các phiên trước chỉ truy cập được một phần. Không khẳng định lưu toàn bộ lịch sử hội thoại. Ngày môi trường, lệnh cài đặt và phiên bản chi tiết nằm trong `docs/reproducibility/pip-freeze.txt` và `docs/reproducibility/source_manifest.json` nếu cần tra cứu.
+Cấu hình chọn có nDCG@10 cao hơn một chút, nhưng Recall@10 thấp hơn. Vì vậy không kết luận cấu hình này tốt hơn trên mọi metric.
 
+Lệnh chạy:
+
+```powershell
+python -m src.evaluation.run_bm25 --top-k 100 --output-dir outputs/bm25_zalo_validation_20261028
+```
+
+**Xem index, predictions, metric, cấu hình và log tại:** `outputs/bm25_zalo_validation_20261028/`.
+
+## G3 / B1 — BGE-M3 và FAISS
+
+Máy Windows không có GPU phù hợp để encode corpus trong thời gian khả thi, nên B1 được chạy trên Kaggle GPU Tesla T4. Checkpoint sử dụng là `BAAI/bge-m3`; toàn bộ 61.425 văn bản được encode thành vector 1.024 chiều, chuẩn hóa và đưa vào FAISS `IndexFlatIP`.
+
+- Encode đủ 61.425/61.425 văn bản, lưu thành 960 shard.
+- Truy xuất và đánh giá trên 256 query validation; mỗi query có tối đa 100 kết quả.
+- Index có 61.425 vector; mapping có 61.425 CID duy nhất theo thứ tự corpus.
+- Đã tải artifact về, kiểm tra checksum, nạp lại FAISS trên Windows và chạy lại evaluator.
+
+| Phương pháp | Recall@10 | Recall@50 | MRR | MAP | nDCG@10 |
+|---|---:|---:|---:|---:|---:|
+| B0 BM25 | 0,855469 | 0,949219 | 0,623093 | 0,623093 | 0,675143 |
+| B1 BGE-M3 + FAISS | 0,921875 | 0,968750 | 0,717058 | 0,717058 | 0,764762 |
+
+Trong lần chạy này, B1 có điểm cao hơn B0 trên các metric trên validation. Đây chưa phải kết quả trên test và chưa chứng minh mức chênh lệch có ý nghĩa thống kê.
+
+| Đo đạc B1 | Kết quả |
+|---|---:|
+| Thời gian chạy Kaggle | 5.437,3 giây |
+| Thời gian encode corpus | 5.294,886 giây |
+| FAISS build/save | 0,506 giây |
+| Query latency p50 / p95 | 53,496 / 60,511 ms |
+| Kích thước FAISS index | 251.596.845 byte |
+
+Query latency gồm encode query và FAISS search, không gồm thời gian encode corpus. Latency B0 được đo trong môi trường khác, nên không dùng hai số này để kết luận hệ nào nhanh hơn.
+
+**Xem artifact B1 tại:** `outputs/b1_dense_validation/`. Gói tải về là `B1_BGE_M3_FAISS_validation_artifacts.zip`; kết quả đánh giá lại được lưu tại `metrics_recomputed_local.json`.
+
+## Kiểm thử và giới hạn hiện tại
+
+- `python -m unittest discover -s tests -v`: 13 test đạt, gồm kiểm tra BM25, evaluator, FAISS, mapping và shard.
+- Đã chạy B1 end-to-end trên dữ liệu thật và nạp lại index trên Windows.
+- Kết quả G0 dùng subset; kết quả G2/G3 dùng validation Zalo. Không gộp G0 với B0/B1 để so sánh trực tiếp.
+- Qrels test chưa được dùng để đánh giá.
+- Hybrid retrieval và Cross-Encoder reranking mới xuất hiện trong sơ đồ kiến trúc tham khảo; chưa được tích hợp và đánh giá trong các mốc trên.
+
+## Sơ đồ kiến trúc tham khảo
+
+Đã đọc mã nguồn `chisngooo/Vietnamese-Legal-Document-Retrieval` tại revision `366e8fb978d97b773d1cd16a92cc0de5445208dd` để hiểu cách ghép BM25, dense retrieval, fusion và reranking. Sơ đồ trong `docs/research_architecture.svg` dùng để minh họa pipeline; không có nghĩa các bước fusion và reranking đã được triển khai trong B1.

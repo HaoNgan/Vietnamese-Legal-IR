@@ -1,20 +1,26 @@
-# Kết quả truy vấn thủ công Top-5 · G0.1
+# Ví dụ kết quả truy vấn Top-5 của G0
 
-## Mục đích và nguồn
+## Mục đích
 
-Tài liệu này ghi hai dạng bằng chứng đầu ra thật của baseline G0: 10 truy vấn thủ công đã lưu lâu hơn và một lần truy vấn terminal được ghi trực tiếp vào log. Log minh chứng mới nhất nằm tại `evidence/g0_topk_terminal.log`; ranked CSV của đúng lần chạy đó là `evidence/g0_topk_results.csv`. Dữ liệu 10 truy vấn nằm trong `../outputs/predictions/manual_top5.csv`, được tạo bởi lệnh:
+File này giúp xem trực tiếp một câu hỏi và các văn bản được Boolean, TF-IDF, BM25 xếp hạng. Đây là ví dụ đầu ra, không thay thế việc đánh giá bằng qrels.
+
+## Chạy lại truy vấn mẫu
+
+Mười câu hỏi mẫu được lưu trong `configs/g0_manual_queries.txt`. Chạy từ thư mục gốc dự án:
 
 ```powershell
 python -m src.app.query --query-file configs/g0_manual_queries.txt --top-k 5
 ```
 
-Mười câu hỏi tự soạn được chạy qua Boolean, TF-IDF và BM25. CSV lưu query, phương pháp, ID tài liệu, hạng, score và excerpt; cấu hình lần chạy ở `../outputs/predictions/manual_top5_config.json`. BM25 và TF-IDF đều có đủ Top-5 cho 10 câu hỏi. Boolean có kết quả cho 3 trong 10 câu; vì vậy CSV có 115 dòng kết quả thay vì 150. Đây vẫn là 10 truy vấn có Top-5 từ ít nhất một phương pháp, nhưng không phải cả ba phương pháp đều trả kết quả cho mọi câu.
+Kết quả của 10 câu hỏi nằm trong `outputs/predictions/manual_top5.csv`; cấu hình chạy nằm cạnh đó trong `manual_top5_config.json`.
 
-## Ví dụ truy vấn
+Trong lần chạy đã lưu, TF-IDF và BM25 trả đủ 5 kết quả cho cả 10 câu hỏi. Boolean trả kết quả cho 3 câu hỏi. Vì vậy CSV có 115 dòng kết quả, không phải 150.
 
-> Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?
+## Ví dụ
 
-| Phương pháp | Hạng | ID tài liệu | Score |
+**Câu hỏi:** Điều kiện đăng ký kết hôn được pháp luật quy định như thế nào?
+
+| Phương pháp | Hạng | ID tài liệu | Điểm xếp hạng |
 |---|---:|---:|---:|
 | Boolean | 1 | 2263 | 5.0 |
 | Boolean | 2 | 2272 | 5.0 |
@@ -32,8 +38,10 @@ Mười câu hỏi tự soạn được chạy qua Boolean, TF-IDF và BM25. CSV
 | BM25 | 4 | 3131 | 18.567563 |
 | BM25 | 5 | 61763 | 18.397848 |
 
-## Cách diễn giải
+Điểm của từng phương pháp có thang đo riêng. Chỉ dùng điểm để xếp hạng trong cùng một phương pháp; không so trực tiếp điểm Boolean với TF-IDF hoặc BM25.
 
-Đây là kết quả trả về thật của lần chạy đã lưu. Mỗi phương pháp tự xếp kết quả theo score của nó; score Boolean, TF-IDF và BM25 không cùng thang đo nên không so sánh trực tiếp các con số giữa các phương pháp. Ví dụ này cho thấy Top-K đầu ra có thể được quan sát; nó không thay thế metric trên qrels và không chứng minh độ chính xác tổng quát.
+## Bằng chứng lưu trong dự án
 
-Log `evidence/g0_topk_terminal.log` ghi lệnh đã chạy, câu hỏi, kết quả Boolean/TF-IDF/BM25 và exit code 0. CSV cạnh log lưu đủ 15 dòng xếp hạng để kiểm tra ID, score và excerpt. Như vậy đã có log truy vấn thật theo yêu cầu G0.1; nếu cần trình chiếu trực quan, có thể mở file log hoặc CSV.
+- `docs/evidence/g0_topk_terminal.log`: lệnh đã chạy, câu hỏi, kết quả hiển thị trong terminal và exit code 0.
+- `docs/evidence/g0_topk_results.csv`: 15 kết quả Top-5 của câu hỏi trong log, gồm ID, hạng, điểm và đoạn trích.
+- `outputs/predictions/manual_top5.csv`: kết quả của 10 câu hỏi mẫu qua cả ba phương pháp.
